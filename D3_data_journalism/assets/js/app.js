@@ -286,8 +286,88 @@ d3.csv("/data/data.csv").then(function(data){
               .classed("active", false)
               .classed("inactive", true);
           }
+          else if (chosenXAxis === "income") {
+            ageLabel
+              .classed("active", true)
+              .classed("inactive", false);
+            povertyLabel
+              .classed("active", false)
+              .classed("inactive", true);
+            incomeLabel
+              .classed("active", false)
+              .classed("inactive", true);
+          }
+          else {
+            ageLabel
+              .classed("active", true)
+              .classed("inactive", false);
+            povertyLabel
+              .classed("active", false)
+              .classed("inactive", true);
+            incomeLabel
+              .classed("active", false)
+              .classed("inactive", true);
+          }
+        
     }
-  }
+  });
+    // y axis labels event listener
+    labelsGroup.selectAll("text")
+        .on("click", function() {
+     // get value of selection
+    var value = d3.select(this).attr("value");
+    if (value !== chosenYAxis) {
+        // replaces chosenXAxis with value
+        chosenYAxis = value;
+        console.log(chosenYAxis)
+        // updates x scale for new data
+        yLinearScale = xScale(data, chosenYAxis);
+
+        // updates x axis with transition
+        yAxis = renderAxes(yLinearScale, yAxis);
+        // updates circles with new x values
+        circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+
+        // update labels on circles
+        cLabels = renderLabels(cLabels, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        
+        // updates tooltips with new info
+        circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+        // changes classes to change bold text
+        if (chosenYAxis === "obesity") {
+            obesityLabel
+              .classed("active", true)
+              .classed("inactive", false);
+            smokesLabel
+              .classed("active", false)
+              .classed("inactive", true);
+            healthcareLabel
+              .classed("active", false)
+              .classed("inactive", true);
+          }
+          else if (chosenXAxis === "smokes") {
+            obesityLabel
+              .classed("active", true)
+              .classed("inactive", false);
+            smokesLabel
+              .classed("active", false)
+              .classed("inactive", true);
+            healthcareLabel
+              .classed("active", false)
+              .classed("inactive", true)
+          }
+          else {
+            obesityLabel
+              .classed("active", true)
+              .classed("inactive", false);
+            smokesLabel
+              .classed("active", false)
+              .classed("inactive", true);
+            healthcareLabel
+              .classed("active", false)
+              .classed("inactive", true)
+          }
+    }
 });
 
 
