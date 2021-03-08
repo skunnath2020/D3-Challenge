@@ -152,7 +152,7 @@ d3.csv("/data/data.csv").then(function(data){
     data.forEach(function(data){
       data.age = +data.age;
       data.poverty = +(data.poverty);
-      data.income = p+data.income;
+      data.income = +data.income;
       data.obesity = +data.obesity;
       data.smokes = +data.smokes;
       data.healthcare = +data.healthcare;
@@ -268,7 +268,7 @@ d3.csv("/data/data.csv").then(function(data){
         circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
         // update labels on circles
-        cLabels = renderLabels(cLabels, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        cLabels = renderLabels(cText, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
         
         // updates tooltips with new info
         circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
@@ -366,7 +366,7 @@ d3.csv("/data/data.csv").then(function(data){
               .classed("inactive", true)
           }
     }
-});
+  });
 });
 
 
