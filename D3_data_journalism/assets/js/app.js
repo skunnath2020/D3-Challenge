@@ -198,7 +198,7 @@ d3.csv("/data/data.csv").then(function(data){
         .classed("stateText", true);
 
 // Create group for two x-axis labels
-    var xlabelsGroup = chartGroup.append("g")
+    var xLabelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
     var ageLabel = xLabelsGroup.append("text")
