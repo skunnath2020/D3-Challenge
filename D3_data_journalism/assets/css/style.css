@@ -39,8 +39,8 @@ body {
 
 .tooltip {
   position: absolute;
-  width: 120px;
-  height: 65px;
+  width: 128px;
+  height: 75px;
   padding: 2px;
   padding-top: 8px;
   font: 12px sans-serif;
@@ -50,8 +50,16 @@ body {
   border: 0;
   border-radius: 10px;
 }
+.stateText {
+  font-family: sans-serif;
+  fill: #fff;
+  text-anchor: middle;
+}
 
-
+.chart {
+  display: block;
+  margin: 0;
+}
 #footer {
   position: absolute;
   bottom: 0;

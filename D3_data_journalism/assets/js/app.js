@@ -5,8 +5,8 @@ var svgHeight = 600;
 var margin = {
     top : 20,
     right: 40 , 
-    bottom:90,
-    left: 50
+    bottom:120,
+    left: 120
 
 };
 var width = svgWidth - margin.left - margin.right;
@@ -17,6 +17,7 @@ var svg = d3.select("#scatter")
         .append("svg")
         .attr("width", svgWidth)
         .attr("height", svgHeight);
+
 //append the SVG group
 var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.right})`)
@@ -114,7 +115,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
       
     var toolTip = d3.tip()
       .attr("class", "tooltip")
-      .offset([80, -60])
+      .offset([120, -60])
       .html(function(d) {
         if (chosenXAxis === "age") {
             // All yAxis tooltip labels presented and formated as %.
@@ -123,7 +124,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
     });
   
     circlesGroup.call(toolTip);
-  
+        //onmouseover event
     circlesGroup.on("mouseover", function(data) {
       toolTip.show(data, this);
     })
@@ -190,7 +191,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
         .append("text")            
         .attr("x", d => xLinearScale(d[chosenXAxis]))
         .attr("y", d => yLinearScale(d[chosenYAxis]))
-        .attr("dy", ".35em") 
+        .attr("dy", ".32em") 
         .text(d => d.abbr)
         .classed("stateText", true);
 
@@ -204,23 +205,23 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
     .attr("font-size", "16px")
     .attr("value", "age") // value to grab for event listener
     .classed("active", true)
-    .text("Age (Median)");
+    .text("Age (Median):");
 
     var povertyLabel = xLabelsGroup.append("text")
     .attr("x", 0)
-    .attr("y", 16)
+    .attr("y", 23)
     .attr("font-size", "16px")
     .attr("value", "poverty") // value to grab for event listener
     .classed("inactive", true)
-    .text("In Poverty (%)");
+    .text("In Poverty(%) :");
     
   var incomeLabel = xLabelsGroup.append("text")
     .attr("x", 0)
-    .attr("y", 29)
+    .attr("y", 40)
     .attr("font-size", "16px")
     .attr("value", "income") // value to grab for event listener
     .classed("inactive", true)
-    .text("Household Income (Median)");
+    .text("Household Income (Median):S");
 
     // Create group for y-axis labels
    
@@ -229,7 +230,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
 
     var obesityLabel = yLabelsGroup.append("text")
         .attr("x", 0 - (height/2))
-        .attr("y", -20 - (margin.left/3))
+        .attr("y", -2 - (margin.left/3))
         .attr("font-size", "16px")
         .attr("value", "obesity") // value to grab for event listener
         .classed("active", true)
@@ -237,15 +238,15 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
 
     var healthcareLabel = yLabelsGroup.append("text")
         .attr("x", 0 - (height/2))
-        .attr("y", 0 - (margin.left/3))
+        .attr("y", -18 - (margin.left/3))
         .attr("font-size", "16px")
         .attr("value", "healthcare") // value to grab for event listener
         .classed("inactive", true)
-        .text("Lacks Healthcare (%)");    
+        .text("Lacks Healthcare :");    
   
     var smokesLabel = yLabelsGroup.append("text")
         .attr("x", 0 - (height/2))
-        .attr("y", -40 - (margin.left/3))
+        .attr("y", -33 - (margin.left/3))
         .attr("font-size", "16px")
         .attr("value", "smokes") // value to grab for event listener
         .classed("inactive", true)
@@ -268,13 +269,13 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
         // updates x axis with transition
         xAxis = renderXAxes(xLinearScale, xAxis);
         // updates circles with new x values
-        circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        circle = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
 
         // update labels on circles
         cLabels = renderLabels(cText, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
         
         // updates tooltips with new info
-        circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
+        circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circle, cLabels);
         // changes classes to change bold text
         if (chosenXAxis === "age") {
             ageLabel
@@ -326,14 +327,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
 
         // updates x axis with transition
         yAxis = renderYAxes(yLinearScale, yAxis);
-        // updates circles with new x values
-        circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
-
-        // update labels on circles
-        cLabels = renderLabels(cLabels, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
         
-        // updates tooltips with new info
-        circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
         // changes classes to change bold text
         if (chosenYAxis === "obesity") {
             obesityLabel
@@ -368,10 +362,19 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
               .classed("active", false)
               .classed("inactive", true)
           }
+        // updates circles with new x values
+        circle = renderCircles(circlesGroup, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+
+        // update labels on circles
+        cLabels = renderLabels(cLabels, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
+        
+        // updates tooltips with new info
+        circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circle, cLabels);
     }
   });
+}).catch(function(error){
+    console.log(error);
 });
-
 
 
 
