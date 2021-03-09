@@ -28,8 +28,6 @@ var chosenYAxis = "obesity"
 // updates x-scale var upon click on axis label
 function xScale(data, chosenXAxis, cWidth) {
     // create scales
-    console.log("data:", data);
-
     var xLinearScale = d3.scaleLinear()
       .domain([d3.min(data, d => d[chosenXAxis]) * 0.8,
         d3.max(data, d => d[chosenXAxis]) * 1.2
@@ -262,7 +260,6 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
         if (value !== chosenXAxis) {
             // replaces chosenXAxis with value
             chosenXAxis = value;
-            console.log("x axis: ", chosenXAxis)
             // updates x scale for new data
             xLinearScale = xScale(data, chosenXAxis, width);
 
@@ -321,7 +318,6 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
         if (value !== chosenYAxis) {
             // replaces chosenXAxis with value
             chosenYAxis = value;
-            console.log("Here :" , chosenYAxis)
             // updates x scale for new data
             yLinearScale = yScale(data, chosenYAxis, height);
 
@@ -367,7 +363,6 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
 
         // update labels on circles
         cLabels = renderLabels(cText, xLinearScale, chosenXAxis, yLinearScale, chosenYAxis);
-        console.log("Circle text:", cLabels)
         // updates tooltips with new info
         circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circle, cLabels);
     }
