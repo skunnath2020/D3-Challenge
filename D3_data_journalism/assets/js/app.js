@@ -25,7 +25,7 @@ var chartGroup = svg.append("g")
 var chosenXAxis = "age";
 var chosenYAxis = "obesity"
 
-// function used for updating x-scale var upon click on axis label
+// updates x-scale var upon click on axis label
 function xScale(data, chosenXAxis, cWidth) {
     // create scales
     console.log("data:", data);
@@ -38,7 +38,7 @@ function xScale(data, chosenXAxis, cWidth) {
   
     return xLinearScale;
     }
-
+//updates y-scale var upon click on axis label
 function yScale(data, chosenYAxis, cHeight) {
     // create scales
     var yLinearScale = d3.scaleLinear()
@@ -81,8 +81,8 @@ function renderLabels(labels, newXScale, chosenXAxis, newYScale, chosenYAxis) {
 
     labels.transition()
         .duration(1000)
-        .attr("lx", d => newXScale(d[chosenXAxis]))
-        .attr("ly", d => newYScale(d[chosenYAxis]));
+        .attr("x", d => newXScale(d[chosenXAxis]))
+        .attr("y", d => newYScale(d[chosenYAxis]));
       
     return labels;
 }
@@ -119,16 +119,14 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, labelGroup) {
       .attr("class", "tooltip")
       .offset([120, -60])
       .html(function(d) {
-        if (chosenXAxis === "age") {
-            // All yAxis tooltip labels presented and formated as %.
-            return (`${d.state}<hr>${xlabel} ${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
-            }      
-    });
+        return (`<b>${d.state}</b><hr>${xlabel} ${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}%`);
+       });
   
     circlesGroup.call(toolTip);
         //onmouseover event
-    circlesGroup.on("mouseover", function(data) {
-      toolTip.show(data, this);
+    circlesGroup
+            .on("mouseover", function(data) {
+            toolTip.show(data, this);
     })
       // onmouseout event
             .on("mouseout", function(data) {

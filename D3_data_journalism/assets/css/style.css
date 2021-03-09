@@ -14,11 +14,9 @@ body {
   padding-bottom: 80px;
 }
 hr {
-  border: 0;
-  height: 1px;
-  background-color: #243588;
-}
-
+  border-top: thin solid #ffffff;
+  margin-bottom : 4px;
+  margin-top : 4px;
 }
 .scatter{
   padding-bottom: 10px;
@@ -51,7 +49,7 @@ hr {
   font: 12px sans-serif;
   color: white;
   text-align: left;
-  background: #7254df;
+  background: #298f30;
   border: 0;
   border-radius: 10px;
 }
